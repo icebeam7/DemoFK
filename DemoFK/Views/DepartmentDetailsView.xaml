@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DemoFK.Views.DepartmentDetailsView"
+             xmlns:vm="clr-namespace:DemoFK.ViewModels"
+             xmlns:model="clr-namespace:DemoFK.Models"
+             xmlns:converters="clr-namespace:DemoFK.Converters"
+             x:DataType="vm:DepartmentDetailsViewModel"
+             Title="{Binding Item.Name}">
+
+    <ContentPage.Resources>
+        <converters:IntToBoolConverter x:Key="intToBoolConverter"/>
+    </ContentPage.Resources>
+
+    <Grid Margin="10"
+          ColumnSpacing="10"
+          RowSpacing="10"
+          RowDefinitions="Auto,*,Auto,Auto"
+          ColumnDefinitions="*,2*">
+
+        <Label Text="Name"
+               VerticalOptions="Center"/>
+
+        <Entry Text="{Binding Item.Name}"
+               Grid.Column="1"
+               HorizontalOptions="Start"
+               WidthRequest="300"/>
+
+        <CollectionView Grid.Row="1"
+                        Grid.ColumnSpan="2"
+                        IsVisible="{Binding Item.Id, Converter={StaticResource intToBoolConverter}}"
+                        Header="{Binding Item.Name, StringFormat='Employees in {0}'}"
+                        EmptyView="{Binding Item.Name, StringFormat='There are no employees in {0}'}"
+                        ItemsSource="{Binding EmployeesDepartment}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Employee">
+                    <Grid Margin="10">
+                        <Label Text="{Binding Name}"
+                               FontSize="Medium"
+                               VerticalOptions="Center"
+                               TextColor="BlueViolet"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Button Text="Save"
+                Command="{Binding SaveItemCommand}"
+                WidthRequest="200"
+                Grid.Row="2"
+                Grid.ColumnSpan="2"/>
+
+        <Button Text="Delete"
+                Command="{Binding DeleteItemCommand}"
+                IsVisible="{Binding Item.Id, Converter={StaticResource intToBoolConverter}}"
+                WidthRequest="200"
+                HorizontalOptions="Center"
+                Grid.Row="3"
+                Grid.ColumnSpan="2"/>
+    </Grid>
+</ContentPage>

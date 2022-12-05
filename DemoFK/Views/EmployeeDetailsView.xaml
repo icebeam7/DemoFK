@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DemoFK.Views.EmployeeDetailsView"
+             xmlns:vm="clr-namespace:DemoFK.ViewModels"
+             xmlns:model="clr-namespace:DemoFK.Models"
+             xmlns:converters="clr-namespace:DemoFK.Converters"
+             x:DataType="vm:EmployeeDetailsViewModel"
+             Title="{Binding Item.Name}">
+
+    <ContentPage.Resources>
+        <converters:IntToBoolConverter x:Key="intToBoolConverter"/>
+    </ContentPage.Resources>
+
+    <Grid Margin="10"
+          ColumnSpacing="10"
+          RowSpacing="10"
+          RowDefinitions="Auto,Auto,Auto,Auto,*"
+          ColumnDefinitions="*,2*">
+
+        <Label Text="Name"
+               VerticalOptions="Center"/>
+
+        <Entry Text="{Binding Item.Name}"
+               Grid.Column="1"
+               HorizontalOptions="Start"
+               WidthRequest="300"/>
+
+        <Label Text="Department"
+               Grid.Row="1"
+               VerticalOptions="Center"/>
+
+        <Picker Title="Select a department" 
+                Grid.Row="1"
+                Grid.Column="1"
+                ItemsSource="{Binding Departments}"
+                ItemDisplayBinding="{Binding Name}"
+                SelectedItem="{Binding EmployeeDepartment}"/>
+
+        <Button Text="Save"
+                Command="{Binding SaveItemCommand}"
+                WidthRequest="200"
+                Grid.Row="2"
+                Grid.ColumnSpan="2"/>
+
+        <Button Text="Delete"
+                Command="{Binding DeleteItemCommand}"
+                IsVisible="{Binding Item.Id, Converter={StaticResource intToBoolConverter}}"
+                WidthRequest="200"
+                Grid.Row="3"
+                Grid.ColumnSpan="2"/>
+    </Grid>
+</ContentPage>

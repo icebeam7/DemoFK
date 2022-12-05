@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="DemoFK.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:DemoFK.Views"
+    Shell.FlyoutBehavior="Flyout">
+
+    <ShellContent
+        Title="Departments"
+        ContentTemplate="{DataTemplate views:DepartmentListView}"
+        Route="DepartmentsListRoute" />
+
+    <ShellContent
+        Title="Employees"
+        ContentTemplate="{DataTemplate views:EmployeeListView}"
+        Route="EmployeesListRoute" />
+</Shell>

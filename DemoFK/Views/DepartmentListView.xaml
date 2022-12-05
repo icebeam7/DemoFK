@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DemoFK.Views.DepartmentListView"
+             xmlns:vm="clr-namespace:DemoFK.ViewModels"
+             xmlns:model="clr-namespace:DemoFK.Models"
+             Title="Departments">
+    <Grid Margin="10"
+          ColumnSpacing="10"
+          RowSpacing="10"
+          RowDefinitions="Auto,*">
+
+        <Button Text="Add new"
+                HorizontalOptions="Center"
+                Command="{Binding GoToNewDetailsCommand}"/>
+
+        <CollectionView Grid.Row="1"
+                        ItemsSource="{Binding Items}"
+                        SelectionMode="Single"
+                        SelectedItem="{Binding SelectedItem}"
+                        SelectionChangedCommand="{Binding GoToDetailsCommand}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Department">
+                    <Grid Margin="10">
+                        <Label Text="{Binding Name}"
+                               FontSize="Large"
+                               VerticalOptions="Center"
+                               TextColor="ForestGreen"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>
