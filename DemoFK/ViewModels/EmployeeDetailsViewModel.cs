@@ -14,7 +14,7 @@ namespace DemoFK.ViewModels
 		[ObservableProperty]
 		Employee item;
 		
-        public EmployeeWithDepartment employeeWithDepartment 
+        public EmployeeWithDepartment EmployeeWithDepartment 
         { 
             set { item = new(value); OnPropertyChanged("Item"); } 
         }
@@ -35,7 +35,7 @@ namespace DemoFK.ViewModels
                 Departments.Add(d);
 
             EmployeeDepartment = Departments
-                .Where(d => d.Id == Item.DepartmentId)
+                .Where(d => d.Id == item.DepartmentId)
                 .FirstOrDefault();
 		}
 
